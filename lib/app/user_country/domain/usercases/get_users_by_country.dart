@@ -1,4 +1,5 @@
 import 'package:clean_architecture_app/app/user_country/domain/entities/user_country_entity.dart';
+import 'package:clean_architecture_app/app/user_country/domain/errors/errors.dart';
 import 'package:clean_architecture_app/app/user_country/domain/repositories/user_country_repository.dart';
 
 abstract class IUsersCountryUsecase {
@@ -13,7 +14,9 @@ class UsersCountryUsecase implements IUsersCountryUsecase {
   @override
   Future<UserCountry> call(CredentialsParams params) async {
     if (params.country!.isEmpty) {
-      
+      throw UsersCountryException(
+        message: 'Você precisa informar um país',
+      );
     }
 
     return await repository.getUserCountry(params);
